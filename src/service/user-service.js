@@ -37,7 +37,7 @@ const login = async (request) => {
 
   const user = await prismaClient.user.findUnique({
     where: {
-      username: loginRequest.user,
+      username: loginRequest.username,
     },
     select: {
       username: true,
@@ -73,4 +73,5 @@ const login = async (request) => {
 
 export default {
   register,
+  login,
 };
