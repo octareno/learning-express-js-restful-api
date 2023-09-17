@@ -3,6 +3,7 @@ import { web } from "../src/application/web";
 import { logger } from "../src/application/logging";
 import { createTestUser, getTestUser, removeTestUser } from "./test-util";
 import bcrypt from "bcrypt";
+import { func } from "joi";
 
 // Command to run all test case in this file : npx jest user.test.js
 // Command to run specific test case : npx jest -t "POST /api/users"
@@ -226,8 +227,41 @@ describe("PATCH /api/users/current", function () {
   it("should reject if request is not valid", async () => {
     const result = await supertest(web)
       .patch("/api/users/current")
-      .set("Authorization", "wrong")
+      .set("Authorization", "wrongtoken")
       .send({});
+
+    expect(result.status).toBe(401);
+  });
+});
+
+// Command to run specific test case : npx jest -t "DELETE /api/users/logout"
+describe("DELETE /api/users/logout", function () {
+  beforeEach(async () => {
+    await createTestUser();
+  });
+
+  afterEach(async () => {
+    await removeTestUser();
+  });
+
+  // Command to run specific test case : npx jest -t "should can logout"
+  it("should can logout", async () => {
+    const result = await supertest(web)
+      .delete("/api/users/logout")
+      .set("Authorization", "test");
+
+    expect(result.status).toBe(200);
+    expect(result.body.data).toBe("OK");
+
+    const user = await getTestUser();
+    expect(user.token).toBeNull();
+  });
+
+  // Command to run specific test case : npx jest -t "should reject logout if token is invalid"
+  it("should reject logout if token is invalid", async () => {
+    const result = await supertest(web)
+      .delete("/api/users/logout")
+      .set("Authorization", "wrongtoken");
 
     expect(result.status).toBe(401);
   });

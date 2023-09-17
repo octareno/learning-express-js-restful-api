@@ -170,7 +170,7 @@ Response Body Success :
 
 ```json
 {
-    "data":"OK
+  "data": "OK"
 }
 ```
 
