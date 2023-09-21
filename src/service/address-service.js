@@ -1,12 +1,12 @@
-import { prismaClient } from "../application/database";
-import { validate } from "../validation/validation";
-import { getContactValidation } from "../validation/contact-validation";
-import { ResponseError } from "../error/response-error";
+import { prismaClient } from "../application/database.js";
+import { validate } from "../validation/validation.js";
+import { getContactValidation } from "../validation/contact-validation.js";
+import { ResponseError } from "../error/response-error.js";
 import {
   createAddressValidation,
   getAddressValidation,
   updateAddressValidation,
-} from "../validation/address-validation";
+} from "../validation/address-validation.js";
 
 const checkContactMustExists = async (user, contactId) => {
   contactId = validate(getContactValidation, contactId);
@@ -106,8 +106,49 @@ const update = async (user, contactId, request) => {
   });
 };
 
+const remove = async (user, contactId, addressId) => {
+  contactId = await checkContactMustExists(user, contactId);
+  addressId = validate(getAddressValidation, addressId);
+
+  const totalAddressInDatabase = await prismaClient.address.count({
+    where: {
+      contact_id: contactId,
+      id: addressId,
+    },
+  });
+
+  if (totalAddressInDatabase !== 1) {
+    throw new ResponseError(404, "address is not found");
+  }
+
+  return prismaClient.address.delete({
+    where: {
+      id: addressId,
+    },
+  });
+};
+
+const list = async (user, contactId) => {
+  contactId = await checkContactMustExists(user, contactId);
+  return prismaClient.address.findMany({
+    where: {
+      contact_id: contactId,
+    },
+    select: {
+      id: true,
+      street: true,
+      city: true,
+      province: true,
+      country: true,
+      postal_code: true,
+    },
+  });
+};
+
 export default {
   create,
   get,
   update,
+  remove,
+  list,
 };
