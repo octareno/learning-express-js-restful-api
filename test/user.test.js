@@ -1,7 +1,7 @@
 import supertest from "supertest";
-import { web } from "../src/application/web";
-import { logger } from "../src/application/logging";
-import { createTestUser, getTestUser, removeTestUser } from "./test-util";
+import { web } from "../src/application/web.js";
+import { logger } from "../src/application/logging.js";
+import { createTestUser, getTestUser, removeTestUser } from "./test-util.js";
 import bcrypt from "bcrypt";
 
 // Command to run all test case in this file : npx jest user.test.js

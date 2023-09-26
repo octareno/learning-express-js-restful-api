@@ -8,8 +8,8 @@ import {
   removeTestUser,
   createTestAddress,
   getTestAddress,
-} from "./test-util";
-import { web } from "../src/application/web";
+} from "./test-util.js";
+import { web } from "../src/application/web.js";
 
 // Command to run all test case in this file : npx jest address.test.js
 // Command to run specific test case : npx jest address.test.js -t "POST /api/contacts/:contactId/addresses"
