@@ -25,8 +25,8 @@ describe("POST /api/users", function () {
     expect(result.body.data.password).toBeUndefined();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "Should reject if requestis invalid"
-  it("Should reject if requestis invalid", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should reject if request is invalid"
+  it("Should reject if request is invalid", async () => {
     const result = await supertest(web).post("/api/users").send({
       username: "",
       password: "",
