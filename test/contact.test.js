@@ -22,8 +22,8 @@ describe("POST /api/contacts", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can create new contact"
-  it("should can create new contact", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can create new contact"
+  it("Should can create new contact", async () => {
     const result = await supertest(web)
       .post("/api/contacts")
       .set("Authorization", "test")
@@ -42,8 +42,8 @@ describe("POST /api/contacts", function () {
     expect(result.body.data.phone).toBe("555444321");
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should reject if request is not valid"
-  it("should reject if request is not valid", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should reject create contact if request is invalid"
+  it("Should reject create contact if request is invalid", async () => {
     const result = await supertest(web)
       .post("/api/contacts")
       .set("Authorization", "test")
@@ -72,8 +72,8 @@ describe("GET /api/contacts/:contactId", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can get contact"
-  it("should can get contact", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can get contact"
+  it("Should can get contact", async () => {
     const testContact = await getTestContact();
 
     const result = await supertest(web)
@@ -88,8 +88,8 @@ describe("GET /api/contacts/:contactId", function () {
     expect(result.body.data.phone).toBe(testContact.phone);
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should return 404 if contact id is not found"
-  it("should return 404 if contact id is not found", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should return 404 if contact id is not found"
+  it("Should return 404 if contact id is not found", async () => {
     const testContact = await getTestContact();
 
     const result = await supertest(web)
@@ -112,8 +112,8 @@ describe("PUT /api/contacts/:contactId", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can update existing contact"
-  it("should can update existing contact", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can update existing contact"
+  it("Should can update existing contact", async () => {
     const testContact = await getTestContact();
     const result = await supertest(web)
       .put("/api/contacts/" + testContact.id)
@@ -133,8 +133,8 @@ describe("PUT /api/contacts/:contactId", function () {
     expect(result.body.data.phone).toBe("99999999");
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should reject if request is invalid"
-  it("should reject if request is invalid", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should reject update contact if request is invalid"
+  it("Should reject update contact if request is invalid", async () => {
     const testContact = await getTestContact();
     const result = await supertest(web)
       .put("/api/contacts/" + testContact.id)
@@ -147,10 +147,11 @@ describe("PUT /api/contacts/:contactId", function () {
       });
 
     expect(result.status).toBe(400);
+    expect(result.body.errors).toBeDefined();
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should reject if contact is not found"
-  it("should reject if contact is not found", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should reject update contact if contact is not found"
+  it("Should reject update contact if contact is not found", async () => {
     const testContact = await getTestContact();
     const result = await supertest(web)
       .put("/api/contacts/" + (testContact.id + 1))
@@ -178,8 +179,8 @@ describe("DELETE /api/contacts/:contactId", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can delete contact"
-  it("should can delete contact", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can delete contact"
+  it("Should can delete contact", async () => {
     let testContact = await getTestContact();
     const result = await supertest(web)
       .delete("/api/contacts/" + testContact.id)
@@ -192,8 +193,8 @@ describe("DELETE /api/contacts/:contactId", function () {
     expect(testContact).toBeNull();
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should reject if contact is not found"
-  it("should reject if contact is not found", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should reject delete contact if contact is not found"
+  it("Should reject delete contact if contact is not found", async () => {
     let testContact = await getTestContact();
     const result = await supertest(web)
       .delete("/api/contacts/" + (testContact.id + 1))
@@ -215,8 +216,8 @@ describe("GET /api/contacts", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can search without parameter"
-  it("should can search without parameter", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can search without parameter"
+  it("Should can search without parameter", async () => {
     const result = await supertest(web)
       .get("/api/contacts")
       .set("Authorization", "test");
@@ -228,8 +229,8 @@ describe("GET /api/contacts", function () {
     expect(result.body.paging.total_item).toBe(15);
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can search to page 2"
-  it("should can search to page 2", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can search to page 2"
+  it("Should can search to page 2", async () => {
     const result = await supertest(web)
       .get("/api/contacts")
       .query({
@@ -246,8 +247,8 @@ describe("GET /api/contacts", function () {
     expect(result.body.paging.total_item).toBe(15);
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can search using name"
-  it("should can search using name", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can search using name"
+  it("Should can search using name", async () => {
     const result = await supertest(web)
       .get("/api/contacts")
       .query({
@@ -264,8 +265,8 @@ describe("GET /api/contacts", function () {
     expect(result.body.paging.total_item).toBe(6);
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can search using email"
-  it("should can search using email", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can search using email"
+  it("Should can search using email", async () => {
     const result = await supertest(web)
       .get("/api/contacts")
       .query({
@@ -282,8 +283,8 @@ describe("GET /api/contacts", function () {
     expect(result.body.paging.total_item).toBe(6);
   });
 
-  // Command to run specific test case : npx jest contact.test.js -t "should can search using phone"
-  it("should can search using phone", async () => {
+  // Command to run specific test case : npx jest contact.test.js -t "Should can search using phone"
+  it("Should can search using phone", async () => {
     const result = await supertest(web)
       .get("/api/contacts")
       .query({

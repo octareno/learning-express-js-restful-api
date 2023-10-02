@@ -25,8 +25,8 @@ describe("POST /api/users", function () {
     expect(result.body.data.password).toBeUndefined();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "Should reject if request is invalid"
-  it("Should reject if request is invalid", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should reject register if request is invalid"
+  it("Should reject register if request is invalid", async () => {
     const result = await supertest(web).post("/api/users").send({
       username: "",
       password: "",
@@ -77,8 +77,8 @@ describe("POST /api/users/login", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should can login"
-  it("should can login", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should can login"
+  it("Should can login", async () => {
     const result = await supertest(web).post("/api/users/login").send({
       username: "test",
       password: "testpassword",
@@ -91,8 +91,8 @@ describe("POST /api/users/login", function () {
     expect(result.body.data.token).not.toBe("test");
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should reject login if request is invalid"
-  it("should reject login if request is invalid", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should reject login if request is invalid"
+  it("Should reject login if request is invalid", async () => {
     const result = await supertest(web).post("/api/users/login").send({
       username: "",
       password: "",
@@ -104,8 +104,8 @@ describe("POST /api/users/login", function () {
     expect(result.body.errors).toBeDefined();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should reject login if password is wrong"
-  it("should reject login if password is wrong", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should reject login if password is incorrect"
+  it("Should reject login if password is incorrect", async () => {
     const result = await supertest(web).post("/api/users/login").send({
       username: "test",
       password: "wrongpassword",
@@ -117,8 +117,8 @@ describe("POST /api/users/login", function () {
     expect(result.body.errors).toBeDefined();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should reject login if username is wrong"
-  it("should reject login if username is wrong", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should reject login if username is incorrect"
+  it("Should reject login if username is incorrect", async () => {
     const result = await supertest(web).post("/api/users/login").send({
       username: "wrongusername",
       password: "wrongpassword",
@@ -141,8 +141,8 @@ describe("GET /api/users/current", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should can get current user"
-  it("should can get current user", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should can get current user"
+  it("Should can get current user", async () => {
     const result = await supertest(web)
       .get("/api/users/current")
       .set("Authorization", "test");
@@ -152,8 +152,8 @@ describe("GET /api/users/current", function () {
     expect(result.body.data.name).toBe("test");
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should reject if token is invalid"
-  it("should reject if token is invalid", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should reject if token is invalid"
+  it("Should reject if token is invalid", async () => {
     const result = await supertest(web)
       .get("/api/users/current")
       .set("Authorization", "wrongtoken");
@@ -173,8 +173,8 @@ describe("PATCH /api/users/current", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should can update user"
-  it("should can update user", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should can update user"
+  it("Should can update user", async () => {
     const result = await supertest(web)
       .patch("/api/users/current")
       .set("Authorization", "test")
@@ -191,8 +191,8 @@ describe("PATCH /api/users/current", function () {
     expect(await bcrypt.compare("secretpassword", user.password)).toBe(true);
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should can update user name"
-  it("should can update user name", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should can update user name"
+  it("Should can update user name", async () => {
     const result = await supertest(web)
       .patch("/api/users/current")
       .set("Authorization", "test")
@@ -205,8 +205,8 @@ describe("PATCH /api/users/current", function () {
     expect(result.body.data.name).toBe("John Doe");
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should can update user password"
-  it("should can update user password", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should can update user password"
+  it("Should can update user password", async () => {
     const result = await supertest(web)
       .patch("/api/users/current")
       .set("Authorization", "test")
@@ -222,8 +222,8 @@ describe("PATCH /api/users/current", function () {
     expect(await bcrypt.compare("secretpassword", user.password)).toBe(true);
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should reject if request is not valid"
-  it("should reject if request is not valid", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should reject update user if request is invalid"
+  it("Should reject update user if request is invalid", async () => {
     const result = await supertest(web)
       .patch("/api/users/current")
       .set("Authorization", "wrongtoken")
@@ -243,8 +243,8 @@ describe("DELETE /api/users/logout", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should can logout"
-  it("should can logout", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should can logout"
+  it("Should can logout", async () => {
     const result = await supertest(web)
       .delete("/api/users/logout")
       .set("Authorization", "test");
@@ -256,8 +256,8 @@ describe("DELETE /api/users/logout", function () {
     expect(user.token).toBeNull();
   });
 
-  // Command to run specific test case : npx jest user.test.js -t "should reject logout if token is invalid"
-  it("should reject logout if token is invalid", async () => {
+  // Command to run specific test case : npx jest user.test.js -t "Should reject logout if token is invalid"
+  it("Should reject logout if token is invalid", async () => {
     const result = await supertest(web)
       .delete("/api/users/logout")
       .set("Authorization", "wrongtoken");

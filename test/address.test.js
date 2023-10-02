@@ -25,8 +25,8 @@ describe("POST /api/contacts/:contactId/addresses", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should can create new address"
-  it("should can create new address", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should can create new address"
+  it("Should can create new address", async () => {
     const testContact = await getTestContact();
 
     const result = await supertest(web)
@@ -49,8 +49,8 @@ describe("POST /api/contacts/:contactId/addresses", function () {
     expect(result.body.data.postal_code).toBe("123123");
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if address request is invalid"
-  it("should reject if address request is invalid", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject create address if address request is invalid"
+  it("Should reject create address if address request is invalid", async () => {
     const testContact = await getTestContact();
 
     const result = await supertest(web)
@@ -65,10 +65,11 @@ describe("POST /api/contacts/:contactId/addresses", function () {
       });
 
     expect(result.status).toBe(400);
+    expect(result.body.errors).toBeDefined();
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if contact is not found"
-  it("should reject if contact is not found", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject create address if contact is not found"
+  it("Should reject create address if contact is not found", async () => {
     const testContact = await getTestContact();
 
     const result = await supertest(web)
@@ -100,8 +101,8 @@ describe("GET /api/contacts/:contactId/addresses/:addressId", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should can get contact"
-  it("should can get contact", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should can get address"
+  it("Should can get address", async () => {
     const testContact = await getTestContact();
     const testAddress = await getTestAddress();
 
@@ -118,8 +119,8 @@ describe("GET /api/contacts/:contactId/addresses/:addressId", function () {
     expect(result.body.data.postal_code).toBe("123123");
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if contact is not found"
-  it("should reject if contact is not found", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject get address if contact is not found"
+  it("Should reject get address if contact is not found", async () => {
     const testContact = await getTestContact();
     const testAddress = await getTestAddress();
 
@@ -132,8 +133,8 @@ describe("GET /api/contacts/:contactId/addresses/:addressId", function () {
     expect(result.status).toBe(404);
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if address is not found"
-  it("should reject if address is not found", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject get address if address is not found"
+  it("Should reject get address if address is not found", async () => {
     const testContact = await getTestContact();
     const testAddress = await getTestAddress();
 
@@ -161,8 +162,8 @@ describe("PUT /api/contacts/:contactId/addresses/:addressId", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should can update address"
-  it("should can update address", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should can update address"
+  it("Should can update address", async () => {
     const testContact = await getTestContact();
     const testAddress = await getTestAddress();
 
@@ -186,8 +187,8 @@ describe("PUT /api/contacts/:contactId/addresses/:addressId", function () {
     expect(result.body.data.postal_code).toBe("111111");
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if request is not valid"
-  it("should reject if request is not valid", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject update address if request is invalid"
+  it("Should reject update address if request is invalid", async () => {
     const testContact = await getTestContact();
     const testAddress = await getTestAddress();
 
@@ -203,10 +204,11 @@ describe("PUT /api/contacts/:contactId/addresses/:addressId", function () {
       });
 
     expect(result.status).toBe(400);
+    expect(result.body.errors).toBeDefined();
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if address is not found"
-  it("should reject if address is not found", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject update address if address is not found"
+  it("Should reject update address if address is not found", async () => {
     const testContact = await getTestContact();
     const testAddress = await getTestAddress();
 
@@ -226,8 +228,8 @@ describe("PUT /api/contacts/:contactId/addresses/:addressId", function () {
     expect(result.status).toBe(404);
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if contact is not found"
-  it("should reject if contact is not found", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject update address if contact is not found"
+  it("Should reject update address if contact is not found", async () => {
     const testContact = await getTestContact();
     const testAddress = await getTestAddress();
 
@@ -262,8 +264,8 @@ describe("DELETE /api/contacts/:contactId/addresses/:addressId", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should can remove address"
-  it("should can remove address", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should can remove address"
+  it("Should can remove address", async () => {
     const testContact = await getTestContact();
     let testAddress = await getTestAddress();
 
@@ -280,8 +282,8 @@ describe("DELETE /api/contacts/:contactId/addresses/:addressId", function () {
     expect(testAddress).toBeNull();
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if address is not found"
-  it("should reject if address is not found", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject delete address if address is not found"
+  it("Should reject delete address if address is not found", async () => {
     const testContact = await getTestContact();
     let testAddress = await getTestAddress();
 
@@ -294,8 +296,8 @@ describe("DELETE /api/contacts/:contactId/addresses/:addressId", function () {
     expect(result.status).toBe(404);
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if contact is not found"
-  it("should reject if contact is not found", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject delete address if contact is not found"
+  it("Should reject delete address if contact is not found", async () => {
     const testContact = await getTestContact();
     let testAddress = await getTestAddress();
 
@@ -323,8 +325,8 @@ describe("GET /api/contacts/:contactId/addresses", function () {
     await removeTestUser();
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should can list addresses"
-  it("should can list addresses", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should can list addresses"
+  it("Should can list addresses", async () => {
     const testContact = await getTestContact();
     const result = await supertest(web)
       .get("/api/contacts/" + testContact.id + "/addresses")
@@ -334,8 +336,8 @@ describe("GET /api/contacts/:contactId/addresses", function () {
     expect(result.body.data.length).toBe(1);
   });
 
-  // Command to run specific test case : npx jest address.test.js -t "should reject if contact is not found"
-  it("should reject if contact is not found", async () => {
+  // Command to run specific test case : npx jest address.test.js -t "Should reject get address if contact is not found"
+  it("Should reject get address if contact is not found", async () => {
     const testContact = await getTestContact();
     const result = await supertest(web)
       .get("/api/contacts/" + (testContact.id + 1) + "/addresses")

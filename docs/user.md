@@ -60,7 +60,7 @@ Response Body Error :
 
 ```json
 {
-  "errors": "Username or password wrong"
+  "errors": "Username or password is incorrect"
 }
 ```
 

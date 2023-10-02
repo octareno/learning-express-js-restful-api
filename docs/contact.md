@@ -37,7 +37,7 @@ Response Body Error :
 
 ```json
 {
-  "errors": "Email is not valid format"
+  "errors": "Email is invalid format"
 }
 ```
 
@@ -78,7 +78,7 @@ Response Body Error :
 
 ```json
 {
-  "errors": "Email is not valid format"
+  "errors": "Email is invalid format"
 }
 ```
 

@@ -48,15 +48,15 @@ const login = async (request) => {
   });
 
   if (!user) {
-    throw new ResponseError(401, "Username or password wrong");
+    throw new ResponseError(401, "Username or password is incorrect");
   }
 
-  const isPasswordValid = await bcrypt.compare(
+  const isValidPassword = await bcrypt.compare(
     loginRequest.password,
     user.password
   );
-  if (!isPasswordValid) {
-    throw new ResponseError(401, "Username or password wrong");
+  if (!isValidPassword) {
+    throw new ResponseError(401, "Username or password is incorrect");
   }
 
   const token = uuid().toString();
@@ -103,7 +103,7 @@ const update = async (request) => {
   });
 
   if (totalUserInDatabase !== 1) {
-    throw new ResponseError(404, "user is not found");
+    throw new ResponseError(404, "User is not found");
   }
 
   const data = {};
